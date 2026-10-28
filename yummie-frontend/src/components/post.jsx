@@ -10,16 +10,18 @@ export function Post() {
                 </div>
             </div>
 
-            <img src="images/food-post/chicken-hyderabadi-biryani-01.jpg" ></img>
+            <img src="images/food-post/chicken-hyderabadi-biryani-01.jpg" 
+            alt='hydrabadi chicken biriyani'
+            className="food-image" ></img>
 
-            <div> post-content
-                <div>post actions
+            <div className="post-content"> 
+                <div className="post-actions" >
                     <button>Like</button>
                     <button>comment</button>
 
                 </div>
-                <p>caption</p>
-                <p> #hashtags</p>
+                <p className='caption'>Hydrabadi chicken biriyani!</p>
+                <p classname='hashtags'> #biriyani #foodies </p>
             </div>
         </article>
     );
