@@ -3,12 +3,24 @@
     align-items:center;
     justify-content: space-between;
     width:100%;
-    
+    gap: 2px;
 }
 .nav{
     gap:6px;
     align-items: center;
+    display:flex;
    
 }
-
-
+.search-box{
+    display:flex;
+    align-items:center;
+}
+.input-box{
+    width:350px;
+    border-radius: 10px;
+    border-color:rgb(121, 52, 4);
+}
+.nav img{
+    object-fit:contain;
+    display:block
+}
