@@ -1,9 +1,9 @@
 .header{
     display:flex;
     align-items:center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width:100%;
-    gap: 2px;
+    gap: 25px;
 }
 .nav{
     gap:6px;
@@ -16,7 +16,7 @@
     align-items:center;
 }
 .input-box{
-    width:350px;
+    width:450px;
     border-radius: 10px;
     border-color:rgb(121, 52, 4);
 }
