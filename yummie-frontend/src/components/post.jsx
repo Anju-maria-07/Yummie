@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Heart} from 'lucide-react';
+import {Heart, MessageCircle, Send} from 'lucide-react';
 import './post.css';
 
 export function Post() {
@@ -11,6 +11,8 @@ export function Post() {
         color={liked? 'chocolate':'currentColor'}
     />
     const likeText=liked? 'Liked':'Like'
+    const commentIcon= < MessageCircle size={20} />
+    const shareIcon= < Send size={20} />
 
     return (
         <article className='food-post'>
@@ -34,7 +36,13 @@ export function Post() {
                         {heartIcon}
                         {likeText}
                         </button>
-                    <button>comment</button>
+                    <button>
+                        {commentIcon}
+                        comment</button>
+                    <button>
+                        {shareIcon}
+                         share
+                    </button>
 
                 </div>
                 <p className='caption'>Hydrabadi chicken biriyani!</p>
