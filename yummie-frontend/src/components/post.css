@@ -46,9 +46,11 @@ gap:10px;
     font-size: 20px;
     color: black;
     line-height:1.5px;
-    margin: 8px 
+    margin: 8px ;
+    display:flex;
 }
 .hashtags{
-    font-size: 15px;
-    color:black;
+    font-size: 14px;
+    color:rgb(99, 89, 89);
+    display:flex;
 }

@@ -21,7 +21,7 @@ export function Post() {
 
                 </div>
                 <p className='caption'>Hydrabadi chicken biriyani!</p>
-                <p classname='hashtags'> #biriyani #foodies </p>
+                <p className='hashtags'> #biriyani #foodies </p>
             </div>
         </article>
     );
