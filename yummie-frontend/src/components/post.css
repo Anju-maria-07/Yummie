@@ -6,7 +6,7 @@
 }
 .user-info{
     display:flex;
-    align-items:centre;
+    align-items:center;
     gap:8px;
 }
 .user-info img{
@@ -40,7 +40,9 @@ gap:10px;
     background: transparent;
     border-radius: 5px;
     border:none;
-    cursor:pointer;
+    display:flex;
+    align-items: center;
+    gap:4px;
 }
 .caption{
     font-size: 20px;

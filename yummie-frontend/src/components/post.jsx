@@ -1,6 +1,17 @@
-import './post.css'
+import {useState} from 'react';
+import {Heart} from 'lucide-react';
+import './post.css';
 
 export function Post() {
+    const [liked,setLiked]=useState(false);
+
+    const heartIcon=<Heart 
+        size={20}
+        fill={liked? 'chocolate':'none'}
+        color={liked? 'chocolate':'currentColor'}
+    />
+    const likeText=liked? 'Liked':'Like'
+
     return (
         <article className='food-post'>
             <div className="post-header">
@@ -16,7 +27,13 @@ export function Post() {
 
             <div className="post-content"> 
                 <div className="post-actions" >
-                    <button>Like</button>
+                    <button onClick={()=>{
+                     setLiked(previousLiked => !previousLiked);   
+                    }}
+                    >
+                        {heartIcon}
+                        {likeText}
+                        </button>
                     <button>comment</button>
 
                 </div>
