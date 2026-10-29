@@ -47,7 +47,7 @@ gap:10px;
 .caption{
     font-size: 20px;
     color: black;
-    line-height:1.5px;
+    line-height:1.5;
     margin: 8px ;
     display:flex;
 }
@@ -55,4 +55,15 @@ gap:10px;
     font-size: 14px;
     color:rgb(99, 89, 89);
     display:flex;
+}
+.comment-section{
+   display:block;
+   text-align:left; 
+   font-weight: 500;
+}
+.comment-section input{
+    width:80%;
+    height:22px;
+    border-radius: 5px;
+    font-weight: 200;
 }

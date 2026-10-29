@@ -4,6 +4,7 @@ import './post.css';
 
 export function Post() {
     const [liked,setLiked]=useState(false);
+    const [showComments, setShowComments]=useState(false);
 
     const heartIcon=<Heart 
         size={20}
@@ -36,7 +37,10 @@ export function Post() {
                         {heartIcon}
                         {likeText}
                         </button>
-                    <button>
+                    <button onClick={()=>{
+                        setShowComments(previousShown => !previousShown);
+                    }}
+                    >
                         {commentIcon}
                         comment</button>
                     <button>
@@ -47,6 +51,12 @@ export function Post() {
                 </div>
                 <p className='caption'>Hydrabadi chicken biriyani!</p>
                 <p className='hashtags'> #biriyani #foodies </p>
+                {showComments &&(
+                  <div className="comment-section">
+                     <p>comments</p>
+                     <input placeholder="write a comment....." />
+                  </div>
+                )}
             </div>
         </article>
     );
