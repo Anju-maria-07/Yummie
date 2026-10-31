@@ -21,7 +21,12 @@
     background-position: center;
 
 }
+.signup-image h1{
+    color:whitesmoke;
+    font-style:italic;
+}
 .signup-form-container{
     width:50%;
-
+    display:block;
+    justify-content:center;
 }
