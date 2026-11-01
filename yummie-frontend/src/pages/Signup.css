@@ -24,21 +24,25 @@
 
 .signup-form-container{
     width:50%;
+    min-height:100vh;
     box-sizing:border-box;
-    padding: 50px 70px;
+    padding: 40px 70px;
 
     display:flex;
     flex-direction: column;
     justify-content:center;
+    align-items:stretch;
 }
 .sigup-form-container h2{
     font-size: 32px;
     color:#29251f;
     margin-bottom:8px;
+    text-align:center;
 }
 .signup-form-container p{
     color:#77716a;
     margin-bottom: 28px;
+    text-align:center;
 }
 .form-group{
     display:flex;
@@ -75,6 +79,7 @@
     font-size:15px;
     font-weight: 600;
     cursor: pointer;
+    margin-bottom: 12px;
     transition: background-color 0.2s ease;
 }
 .signup-form-container button:hover{
@@ -109,12 +114,20 @@
     width:100%;
     height:1.5px;
     background-color: rgb(250, 144, 69);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .brand-description{
     color:white;
     font-size :14px;
-    line-height:1.5;
+    line-height:1.6;
+}
+.login-link a{
+    color:#d96538;
+    text-decoration:none;
+    font-weight:600;
+}
+.login-link a:hover{
+    text-decoration:underline;
 }
 
 

@@ -1,5 +1,11 @@
+import {useState} from 'react';
 import './Signup.css'
+
 export function Signup() {
+    const [username,setUsername]=useState('');
+    const [email,setEmail]=useState('');
+    const [password,setPassword]=useState('');
+    const [confirmPassword, setConfirmPassword]=useState('');
     return (
         <>
             <div className='signup-page'>
@@ -22,40 +28,48 @@ export function Signup() {
                 </div>
                 <div className="signup-form-container">
                     <img src='/images/logo.png'
-                        alt='yummie logo' width="20px" />
+                        alt='yummie logo'  />
                     <h2>Create your Account</h2>
                     <p>Join the Yummie community</p>
                     <form>
                         <div className='form-group'>
-                            <label htmlfor='username'>Username</label>
+                            <label htmlFor='username'>Username</label>
                             <input type='text' id='username' name='username'
-                                placeholder="Enter your username" />
+                                placeholder="Enter your username"
+                                value={username}
+                                onChange={(event)=>setUsername(event.target.value)} />
                         </div>
 
                         <div className='form-group'>
-                            <label htmlfor="email">Email</label>
+                            <label htmlFor="email">Email</label>
                             <input id='email' type='email' name='email'
                                 placeholder='Enter your email'
+                                value={email}
+                                onChange={(event)=>setEmail(event.target.value)} 
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlfor='password'>Password</label>
+                            <label htmlFor='password'>Password</label>
                             <input type='password' id='password' name='password'
                                 placeholder='Create a password'
+                                value={password}
+                                onChange={(event)=>setPassword(event.target.value)}
                             />
                         </div>
 
                         <div className='form-group'>
-                            <label htmlfor='confirm-password'>Confirm Password</label>
-                            <input type='password' id='password' name='password'
+                            <label htmlFor='confirm-password'>Confirm Password</label>
+                            <input type='password' id='confirm-password' name='confirmPassword'
                                 placeholder='Enter your password again'
+                                value={confirmPassword}
+                                onChange={(event)=>setConfirmPassword(event.target.value)}
                             />
                         </div>
 
                         <button type='submit'>Create Account</button>
                     </form>
 
-                    <p classname='login-link'>
+                    <p className='login-link'>
                         Already have an account?
                         <a href='/login'>Login</a>
                     </p>
