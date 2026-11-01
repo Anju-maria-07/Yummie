@@ -6,6 +6,23 @@ export function Signup() {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [confirmPassword, setConfirmPassword]=useState('');
+    const [error,setError] = useState('');
+
+    function handleSubmit(event){
+        event.preventDefault();
+        if(!username.trim()|| !email.trim()|| !password || !confirmPassword){
+            setError('Please fill all fields');
+            return
+        }
+
+        if(password!== confirmPassword){
+            setError('Passwords do not match');
+            return;
+        }
+        setError('');
+        console.log('passwords match!')
+    }
+
     return (
         <>
             <div className='signup-page'>
@@ -31,7 +48,7 @@ export function Signup() {
                         alt='yummie logo'  />
                     <h2>Create your Account</h2>
                     <p>Join the Yummie community</p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='form-group'>
                             <label htmlFor='username'>Username</label>
                             <input type='text' id='username' name='username'
@@ -68,6 +85,7 @@ export function Signup() {
 
                         <button type='submit'>Create Account</button>
                     </form>
+                    {error && <p className='error-message'>{error}</p>}
 
                     <p className='login-link'>
                         Already have an account?
