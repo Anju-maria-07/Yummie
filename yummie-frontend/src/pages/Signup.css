@@ -16,15 +16,12 @@
     color: white;
     background-image: linear-gradient(transparent,
     rgba(0,0,0,0.7)),
-    url('images/background-pic.png');
+    url('images/background-pic2.jpg');
     background-size: cover;
     background-position: center;
 
 }
-.signup-image h1{
-    color:whitesmoke;
-    font-style:italic;
-}
+
 .signup-form-container{
     width:50%;
     box-sizing:border-box;
@@ -34,7 +31,7 @@
     flex-direction: column;
     justify-content:center;
 }
-.sigup-form-cntainer h2{
+.sigup-form-container h2{
     font-size: 32px;
     color:#29251f;
     margin-bottom:8px;
@@ -83,6 +80,44 @@
 .signup-form-container button:hover{
     background-color: #cb6032;
 }
+.signup-form-container img{
+    display:block;
+    width:230px;
+    height:auto;
+    margin:0 auto 20px 
+}
+.brand-message{
+    text-align:center;
+    max-width:380px;
+    margin: 0 auto;
+}
+.brand-message h1{
+    color:chocolate;
+    font-size:26px;
+    line-height:1.2;
+    margin-bottom:20px;
+    font-style:italic;
+}
+.brand-highlight{
+    color:white;
+    font-size:16px;
+    line-height: 1.5;
+    font-weight: 550;
+    margin-bottom:30px ;
+}
+.brand-divider{
+    width:100%;
+    height:1.5px;
+    background-color: rgb(250, 144, 69);
+    margin-bottom: 20px;
+}
+.brand-description{
+    color:white;
+    font-size :14px;
+    line-height:1.5;
+}
+
+
 @media (max-width: 768px){
     .signup-page{
         flex-direction:column;
