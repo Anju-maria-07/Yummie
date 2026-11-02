@@ -7,9 +7,12 @@ export function Signup() {
     const [password,setPassword]=useState('');
     const [confirmPassword, setConfirmPassword]=useState('');
     const [error,setError] = useState('');
+    const [success,setSuccess] =useState('');
 
-    function handleSubmit(event){
+    async function handleSubmit(event){
         event.preventDefault();
+        setError('');
+        setSuccess('');
         if(!username.trim()|| !email.trim()|| !password || !confirmPassword){
             setError('Please fill all fields');
             return
@@ -19,8 +22,33 @@ export function Signup() {
             setError('Passwords do not match');
             return;
         }
-        setError('');
-        console.log('passwords match!')
+        
+        
+        try{
+            const url='http://127.0.0.1:8000/api/users/register/';
+
+            const response= await fetch(url,{
+                method:'POST',
+                headers:{
+                    'content-type':'application/Json'
+                },
+                body:JSON.stringify({
+                    username:username ,
+                    email:email,
+                    password:password
+                })
+            });
+            if(response.ok){
+                setSuccess('Account created successfully! ')
+            }
+            else{
+                setError('Registration failed')
+            }
+            
+        }catch(error){
+            setError('unable to connect to the server. please try again.');
+            console.log(error);
+        }
     }
 
     return (
@@ -86,6 +114,7 @@ export function Signup() {
                         <button type='submit'>Create Account</button>
                     </form>
                     {error && <p className='error-message'>{error}</p>}
+                    {success && <p className='success-message' >{success}</p>}
 
                     <p className='login-link'>
                         Already have an account?

@@ -140,7 +140,12 @@
     font-size:14px;
     margin-top:5px;
 }
-
+.signup-form-container .success-message{
+    color: green;
+    font-size:14px;
+    margin-top:5px;
+    text-align:center;
+}
 
 @media (max-width: 768px){
     .signup-page{
