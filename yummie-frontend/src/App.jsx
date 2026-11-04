@@ -4,6 +4,7 @@ import { Post } from './components/post'
 import { Signup } from './pages/Signup'
 import { Routes, Route } from 'react-router-dom'
 import { getCsrfToken } from './utils/csrf'
+import {Login} from './pages/login'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <button onClick={testCsrf}>TestCsrf</button>
        </>} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/login' element={<Login />} />
     </Routes>
 
   )
