@@ -1,37 +1,78 @@
+import { useState } from 'react';
+import { loginUser } from '../utils/auth'
+import { useNavigate, Link } from 'react-router-dom';
+import './Signup.css';
 
-export function Login(){
-    return(
+
+export function Login() {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const navigate = useNavigate();
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        setError('');
+        setSuccess('');
+
+        if (!username.trim() || !password) {
+            setError('please fill all fields !')
+            return;
+        }
+        try {
+            const data = await loginUser(username, password);
+
+            setSuccess(data.message || 'Login is successful !')
+            navigate('/')
+        }
+        catch (error) {
+            setError(error.message || 'Login failed. Please try again !.')
+        }
+    }
+
+    return (
         <div className='signup-page'>
             <div className='signup-image'>
-             <div className='brand-message'>
-                <h1>Welcome back to yummie!</h1>
-                
-                <p className='brand-highlight'>
-                    Good Food.Great People.Real Connections</p>
+                <div className='brand-message'>
+                    <h1>Welcome back to yummie!</h1>
+
+                    <p className='brand-highlight'>
+                        Good Food.Great People.Real Connections</p>
                     <div className='brand-divider'></div>
                     <p className='brand-description'>
                         Time to discover your next favorite ! </p>
-             </div>
+                </div>
             </div>
 
             <div className='signup-form-container'>
                 <img src='/images/logo.png' alt='yummie logo' />
                 <h2>Login to your account</h2>
                 <p>Join the Yummie community</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor='username'>Username</label>
-                        <input id='username' name='username' placeholder='Enter your username' />
+                        <input type='text' id='username' name='username' placeholder='Enter your username'
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)} />
 
                     </div>
                     <div className='form-group'>
                         <label htmlFor='password'>Password</label>
-                        <input id='password' placeholder='Enter your password' name='password' />
+                        <input type='password' id='password' placeholder='Enter your password' name='password'
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)} />
                     </div>
-                    <button>Login</button>
+                    <button type='submit'>Login</button>
                 </form>
-                <p>Don't have an account? 
-                    <a href='/signup'>Sign up</a></p>
+                {error && <p className='error-message'>{error}</p>}
+                {success && <p className='success-message'>{success}</p>}
+                <p>Don't have an account?{'  '}
+                  <Link to='/signup' >sign up</Link>
+                </p>
+                   
             </div>
         </div>
     )
