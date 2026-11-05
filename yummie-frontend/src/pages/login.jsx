@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { loginUser } from '../utils/auth'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import './Signup.css';
 
 
@@ -9,23 +9,23 @@ export function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     async function handleSubmit(event) {
         event.preventDefault();
         setError('');
-        setSuccess('');
+        
 
         if (!username.trim() || !password) {
             setError('please fill all fields !')
             return;
         }
         try {
-            const data = await loginUser(username, password);
+            await loginUser(username, password);
 
-            setSuccess(data.message || 'Login is successful !')
             navigate('/')
         }
         catch (error) {
@@ -49,6 +49,9 @@ export function Login() {
 
             <div className='signup-form-container'>
                 <img src='/images/logo.png' alt='yummie logo' />
+                {location.state?.message && 
+                <p className='success-message'>{location.state.message}</p>}
+
                 <h2>Login to your account</h2>
                 <p>Join the Yummie community</p>
                 <form onSubmit={handleSubmit}>
@@ -68,7 +71,7 @@ export function Login() {
                     <button type='submit'>Login</button>
                 </form>
                 {error && <p className='error-message'>{error}</p>}
-                {success && <p className='success-message'>{success}</p>}
+                
                 <p>Don't have an account?{'  '}
                   <Link to='/signup' >sign up</Link>
                 </p>

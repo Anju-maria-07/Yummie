@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useNavigate, Link} from 'react-router-dom'
 import './Signup.css'
 
 export function Signup() {
@@ -7,12 +8,14 @@ export function Signup() {
     const [password,setPassword]=useState('');
     const [confirmPassword, setConfirmPassword]=useState('');
     const [error,setError] = useState('');
-    const [success,setSuccess] =useState('');
+    
+
+    const navigate=useNavigate();
 
     async function handleSubmit(event){
         event.preventDefault();
         setError('');
-        setSuccess('');
+        
         if(!username.trim()|| !email.trim()|| !password || !confirmPassword){
             setError('Please fill all fields');
             return
@@ -25,7 +28,7 @@ export function Signup() {
         
         
         try{
-            const url='http://127.0.0.1:8000/api/users/register/';
+            const url='http://localhost:8000/api/users/register/';
 
             const response= await fetch(url,{
                 method:'POST',
@@ -39,7 +42,15 @@ export function Signup() {
                 })
             });
             if(response.ok){
-                setSuccess('Account created successfully! ')
+                
+
+                navigate('/login',
+                    {
+                        state:{
+                            message:'Account created successfully ! Please login to your account.'
+                        }
+                    }
+                );
             }
             else{
                 setError('Registration failed')
@@ -114,11 +125,11 @@ export function Signup() {
                         <button type='submit'>Create Account</button>
                     </form>
                     {error && <p className='error-message'>{error}</p>}
-                    {success && <p className='success-message' >{success}</p>}
+                   
 
                     <p className='login-link'>
                         Already have an account?
-                        <a href='/login'>Login</a>
+                        <Link to='/login'>Login</Link>
                     </p>
                 </div>
 
