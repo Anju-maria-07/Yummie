@@ -2,14 +2,16 @@ import './App.css'
 import { Navbar } from './components/NavBar';
 import { Post } from './components/post';
 import { Signup } from './pages/Signup';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigation} from 'react-router-dom';
 import {Login} from './pages/login';
 import {useState, useEffect} from 'react';
 import {getCurrentUser} from './utils/auth';
+import {logoutUser} from './utils/auth';
 
 function App() {
 
   const [user,setUser] = useState(null);
+  const navigate = useNavigation();
 
   useEffect(()=>{
     async function checkUser(){
@@ -24,7 +26,16 @@ function App() {
     checkUser();
   },[])
 
-  
+  async function handleLogout(){
+    try{
+      await logoutUser();
+      setUser(null);
+      navigate('/login');
+    }
+    catch(error){
+      console.log('Logout error', error.message);
+    }
+  }
 
   return (
 
