@@ -24,3 +24,17 @@ export async function loginUser(username, password){
     }
     return data;
 }
+
+export async function getCurrentUser(){
+    const response= await fetch('http://localhost:8000/api/users/me/',
+        {
+            credentials:'include'
+        }
+    )
+    if(!response.ok){
+        throw new Error('not Authenticated')
+        
+    }
+    return await response.json()
+
+}
