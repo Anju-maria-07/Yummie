@@ -1,9 +1,10 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import UserSerializer
 # Create your views here.
@@ -49,3 +50,12 @@ def login_user(request):
 @api_view(['GET'])
 def csrf_token(request):
     return Response({'csrfToken': get_token(request)})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    return Response({
+        'id':request.user.id,
+        'username':request.user.username,
+        'email':request.user.email
+    })
