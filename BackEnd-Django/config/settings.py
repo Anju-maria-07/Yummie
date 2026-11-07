@@ -40,10 +40,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
-    
+
     #our apps
     'users.apps.UsersConfig',
-    'posts',
+    'posts.apps.PostsConfig',
 ]
 
 MIDDLEWARE = [
