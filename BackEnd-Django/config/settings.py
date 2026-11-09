@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     #our apps
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'connections.apps.ConnectionsConfig',
+    'notifications.apps.NotificationsConfig',
+    'foodspots.apps.FoodspotsConfig',
+    'yummeet.apps.YummeetConfig',
 ]
 
 MIDDLEWARE = [

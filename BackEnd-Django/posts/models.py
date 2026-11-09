@@ -2,32 +2,9 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
-class FoodSpot(models.Model):
-    name = models.CharField(max_length=200)
-    address = models.TextField(blank=True)
-    latitude = models.DecimalField(max_digits=9,
-                                   decimal_places=6,
-                                   blank=True,
-                                   null=True)
-    longitude = models.DecimalField(max_digits=9,
-                                   decimal_places=6,
-                                   null=True,blank=True)
-    google_place_id = models.CharField(max_length=255,
-                                        blank=True,null=True)
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,blank=True,
-        on_delete = models.SET_NULL,
-        related_name = 'suggested_food_spots'
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
 
 class Post(models.Model):
-    food_spot=models.ForeignKey(FoodSpot,
+    food_spot=models.ForeignKey('foodspots.FoodSpot',
         on_delete=models.PROTECT,
         related_name= 'posts'
     )
@@ -132,60 +109,4 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.user.username} commented on {self.post.dish_name}"
 
-class Follow(models.Model):
-    follower = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='following_relations'
-    )
-    following=models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='follower_relations'
-    )
-    created_at=models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        constraints=[
-            models.UniqueConstraint(
-                fields=['follower','following'],
-                name='unique_user_follow'
-            ),
-            models.CheckConstraint(
-                condition=~models.Q(follower=models.F('following')),
-                name='prevent_self_follow'
-            )
-        ]
-
-    def __str__(self):
-        return f"{self.follower.username} follows {self.following.username}"
-
-class Notification(models.Model):
-    NOTIFICATION_TYPES=[
-        ('like','Like'),
-        ('comment','Comment'),
-        ('follow','follow'),
-        ('yumIt','Yumit'),
-        ('yummeet','YumMeet')
-    ]
-    recipient=models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='notifications'
-    )
-    actor=models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='sent_notifications'
-    )
-    notification_types=models.CharField(
-        max_length=20,
-        choices=NOTIFICATION_TYPES
-    )
-    is_read=models.BooleanField(default=False)
-    created_at=models.DateTimeField(auto_now_add=True)
-    read_at=models.DateTimeField(null=True,blank=True)
-    post=models.ForeignKey('Post',
-                           on_delete=models.CASCADE,
-                           related_name='notifications',
-                           null=True,blank=True)

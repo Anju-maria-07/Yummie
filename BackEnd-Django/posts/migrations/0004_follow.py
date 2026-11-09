@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('following', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follower_relations', to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'constraints': [models.UniqueConstraint(fields=('follower', 'following'), name='unique_user_follow'), models.CheckConstraint(condition=models.Q(('follower', models.F('following')), _negated=True), name='prevent_self_follow')],
+                'constraints': [models.UniqueConstraint(fields=('follower', 'following'), name='posts_unique_user_follow'), models.CheckConstraint(condition=models.Q(('follower', models.F('following')), _negated=True), name='posts_prevent_self_follow')],
             },
         ),
     ]
