@@ -161,6 +161,13 @@ class Follow(models.Model):
         return f"{self.follower.username} follows {self.following.username}"
 
 class Notification(models.Model):
+    NOTIFICATION_TYPES=[
+        ('like','Like'),
+        ('comment','Comment'),
+        ('follow','follow'),
+        ('yumIt','Yumit'),
+        ('yummeet','YumMeet')
+    ]
     recipient=models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -171,4 +178,14 @@ class Notification(models.Model):
         on_delete=models.CASCADE,
         related_name='sent_notifications'
     )
-    
+    notification_types=models.CharField(
+        max_length=20,
+        choices=NOTIFICATION_TYPES
+    )
+    is_read=models.BooleanField(default=False)
+    created_at=models.DateTimeField(auto_now_add=True)
+    read_at=models.DateTimeField(null=True,blank=True)
+    post=models.ForeignKey('Post',
+                           on_delete=models.CASCADE,
+                           related_name='notifications',
+                           null=True,blank=True)
