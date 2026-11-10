@@ -31,3 +31,6 @@ class Notification(models.Model):
                              on_delete=models.CASCADE,
                              related_name='notifications',
                              null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.actor.username}- {self.get_notification_type_display()}"
