@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
 # Create your models here.
+
+def get_expiry_date():
+    return timezone.now() + timedelta(days=7)
 
 class YumMeetRequest(models.Model):
     STATUS_CHOICES=[
@@ -8,7 +13,8 @@ class YumMeetRequest(models.Model):
         ('accepted','Accepted'),
         ('declined','Declined'),
         ('cancelled','Cancelled'),
-        ('completed','Completed')
+        ('completed','Completed'),
+        ('expired','Expired')
     ]
 
 
@@ -34,6 +40,8 @@ class YumMeetRequest(models.Model):
     )
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    expires_at=models.DateTimeField(
+        default= get_expiry_date)
 
     class Meta:
         ordering=['-created_at']
