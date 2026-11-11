@@ -29,7 +29,7 @@ def accept_yummeet(request,pk):
             yummeet_request.status= 'expired'
             yummeet_request.save(update_fields=['status','updated_at'])
             return Response(
-                {'error':'This Invitation is already expired'},
+                {'error':'This Invitation is no longer pending.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
             
