@@ -1,10 +1,11 @@
 from django.utils import timezone
-from rest_framework import status
+from rest_framework import status,generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import YumMeetRequest
+from .serializers import YumMeetRequestSerializer
 # Create your views here.
 
 @api_view(['POST'])
@@ -46,3 +47,10 @@ def accept_yummeet(request,pk):
         {'message':'YumMeet invitation accepted successfullly.'},
         status=status.HTTP_200_OK
     )
+
+class CreateYumMeetView(generics.CreateAPIView):
+    serializer_class=YumMeetRequestSerializer
+    permission_classes=[IsAuthenticated]
+
+    def perform_create(self,serializer):
+        serializer.save(sender=self.request.user)
