@@ -19,6 +19,10 @@ class Post(models.Model):
     def __str__(self):
         return self.dish_name
 
+def post_media_upload_path(instance,filename):
+    folder= 'images' if instance.media_type == 'image' else 'videos'
+    return f"posts/{folder}/{filename}"
+
 class PostMedia(models.Model):
     MEDIA_TYPES= [('image','Image'),
                   ('video','Video')]
@@ -26,7 +30,7 @@ class PostMedia(models.Model):
     post=models.ForeignKey(Post,
                            on_delete=models.CASCADE,
                            related_name='media')
-    file=models.FileField(upload_to='posts/')
+    file=models.FileField(upload_to=post_media_upload_path)
     media_type=models.CharField(
         max_length=10,
         choices=MEDIA_TYPES
