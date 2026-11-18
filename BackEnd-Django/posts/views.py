@@ -10,5 +10,11 @@ class CreatePostView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     parser_classes=[MultiPartParser,FormParser]
 
+    def post(self,request,*args,**kwargs):
+        print(request.FILES)
+        print(request.FILES.getlist('media_files'))
+
+        return super().post(request,*args,**kwargs)
+
     def perform_create(self,serializer):
         serializer.save(user=self.request.user)

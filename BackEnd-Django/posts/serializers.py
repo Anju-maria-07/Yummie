@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Post,PostMedia
+from django.db import transaction
 
 class PostMediaSerializer(serializers.ModelSerializer):
 
@@ -13,10 +14,10 @@ class PostSerializer(serializers.ModelSerializer):
     
     media= PostMediaSerializer(many=True, read_only=True)
     media_files= serializers.ListField(
-        child=serializers.FileField()
+        child=serializers.FileField(),
         write_only=True, required=False
     )
-
+    @transaction.atomic
     def create(self,validated_data):
         media_files=validated_data.pop('media_files',[])
         post=Post.objects.create(**validated_data)
