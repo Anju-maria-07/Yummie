@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
+from .pagination import PostPagination
 
 from .serializers import PostSerializer
 from .models import Post
@@ -12,8 +13,8 @@ class CreatePostView(generics.CreateAPIView):
     parser_classes=[MultiPartParser,FormParser]
 
     def post(self,request,*args,**kwargs):
-        print(request.FILES)
-        print(request.FILES.getlist('media_files'))
+        print(request.data)
+        print(request.data.get('food_spot'))
 
         return super().post(request,*args,**kwargs)
 
@@ -21,6 +22,25 @@ class CreatePostView(generics.CreateAPIView):
         serializer.save(user=self.request.user)
 
 class PostListView(generics.ListAPIView):
-    queryset= Post.objects.all()
+    queryset= Post.objects.select_related('user','food_spot').prefetch_related('media')
     serializer_class= PostSerializer
+    permission_classes=[IsAuthenticated]
+    pagination_class=PostPagination
+
+class PostDetailView(generics.RetrieveAPIView):
+    queryset=Post.objects.select_related(
+        'user','food_spot'
+        ).prefetch_related('media')
+
+    serializer_class=PostSerializer
+    permission_classes=[IsAuthenticated]
+
+class PostUpdateView(generics.UpdateAPIView):
+    queryset=Post.objects.all()
+    serializer_class=PostSerializer
+    permission_classes=[IsAuthenticated]
+
+class PostDeleteView(generics.DestroyAPIView):
+    queryset=Post.objects.all()
+    serializer_class=PostSerializer
     permission_classes=[IsAuthenticated]
