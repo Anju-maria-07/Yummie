@@ -3,6 +3,7 @@ from .models import Post,PostMedia
 from django.db import transaction
 from foodspots.serializers import FoodSpotSerializer
 from users.serializers import PublicUserSerializer
+from foodspots.models import FoodSpot
 
 class PostMediaSerializer(serializers.ModelSerializer):
 
@@ -16,6 +17,11 @@ class PostSerializer(serializers.ModelSerializer):
     
     media= PostMediaSerializer(many=True, read_only=True)
     food_spot = FoodSpotSerializer(read_only=True)
+    food_spot_id= serializers.PrimaryKeyRelatedField(
+        queryset=FoodSpot.objects.all(),
+        source='food_spot',
+        write_only=True
+    )
     user = PublicUserSerializer(read_only=True)
 
     media_files= serializers.ListField(

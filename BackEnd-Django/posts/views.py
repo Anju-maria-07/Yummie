@@ -12,12 +12,7 @@ class CreatePostView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     parser_classes=[MultiPartParser,FormParser]
 
-    def post(self,request,*args,**kwargs):
-        print(request.data)
-        print(request.data.get('food_spot'))
-
-        return super().post(request,*args,**kwargs)
-
+    
     def perform_create(self,serializer):
         serializer.save(user=self.request.user)
 
