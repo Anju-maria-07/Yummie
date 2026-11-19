@@ -5,6 +5,7 @@ from .pagination import PostPagination
 
 from .serializers import PostSerializer
 from .models import Post
+from .permissions import IsPostOwner
 
 # Create your views here.
 class CreatePostView(generics.CreateAPIView):
@@ -33,9 +34,9 @@ class PostDetailView(generics.RetrieveAPIView):
 class PostUpdateView(generics.UpdateAPIView):
     queryset=Post.objects.all()
     serializer_class=PostSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticated, IsPostOwner]
 
 class PostDeleteView(generics.DestroyAPIView):
     queryset=Post.objects.all()
     serializer_class=PostSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticated , IsPostOwner]
