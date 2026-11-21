@@ -23,11 +23,15 @@ class PostSerializer(serializers.ModelSerializer):
         write_only=True
     )
     user = PublicUserSerializer(read_only=True)
+    likes_count=serializers.SerializerMethodField()
 
     media_files= serializers.ListField(
         child=serializers.FileField(),
         write_only=True, required=False
     )
+    def get_likes_count(self,obj):
+        return obj.likes.count()
+    
     @transaction.atomic
     def create(self,validated_data):
         media_files=validated_data.pop('media_files',[])
