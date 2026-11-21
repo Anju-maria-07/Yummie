@@ -24,6 +24,7 @@ class PostSerializer(serializers.ModelSerializer):
     )
     user = PublicUserSerializer(read_only=True)
     likes_count=serializers.SerializerMethodField()
+    is_liked=serializers.SerializerMethodField()
 
     media_files= serializers.ListField(
         child=serializers.FileField(),
@@ -31,6 +32,14 @@ class PostSerializer(serializers.ModelSerializer):
     )
     def get_likes_count(self,obj):
         return obj.likes.count()
+
+    def get_is_liked(self,obj):
+        user=self.context['request'].user
+
+        if user.is_authenticated:
+            return obj.likes.filter(user=user).exists()
+
+        return False
     
     @transaction.atomic
     def create(self,validated_data):
